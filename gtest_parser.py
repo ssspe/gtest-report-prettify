@@ -32,9 +32,18 @@ def process_xml(xml):
         Will return a JSON object that matches that created by GTEST.
     """
 
-    data = {'testsuites': []}
     tree = ET.parse(xml)
     root = tree.getroot()
+    overviewName = root.attrib['name']
+    overviewTests = int(root.attrib['tests'])
+    overviewFailed = int(root.attrib['failures'])
+    data = {
+        'name': overviewName,
+        'tests': overviewTests,
+        'failures': overviewFailed,
+        'testsuites': []
+    }
+
     for child in root:
         testSuitename = child.attrib['name']
         totalTests = int(child.attrib['tests'])
@@ -87,7 +96,7 @@ def create_html(data):
     template = templateEnv.get_template(TEMPLATE_FILE)
 
     with open(OUTPUT_FILE, "w") as output_html:
-        output_html.write(template.render(test_suites=data['testsuites']))
+        output_html.write(template.render(test_overview=data, test_suites=data['testsuites']))
 
 if __name__ == "__main__":
     json_data = process_input(sys.argv[1])

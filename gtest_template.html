@@ -4,16 +4,62 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <style>
-   .test-suite-container {padding: 50px; width: 100%!important;}
+
    .number-container {padding: 20px; text-align: center;}
+   .test-suite-container {margin: 50px;}
   </style>
 
   <title>Google Test Report</title>
 </head>
 <body>
-  <div class="test-suite-container" >
+  <div>
+    <div class="card test-suite-container">
+      <h5 class="card-header">{{ test_overview.name }}</h5>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-primary">
+                  Number of tests: {{ test_overview.tests }}
+                </span>
+              </h4>
+
+            </div>
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-success">
+                  Passed: {{ test_overview.tests - test_overview.failures }}
+                </span>
+              </h4>
+
+            </div>
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-danger">
+                  Failed: {{ test_overview.failures }}
+                </span>
+              </h4>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group">
+          {% for test_suite in test_suites %}
+            <a href={{"#" + test_suite.name }} class="list-group-item list-group-item-action">
+              {{ test_suite.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
     {% for test_suite in test_suites %}
-      <div class="card w-100">
+      <div class="card test-suite-container" id={{ test_suite.name }}>
         <h5 class="card-header">{{ test_suite.name }}</h5>
         <div class="card-body">
           <div class="container">
