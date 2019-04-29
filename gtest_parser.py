@@ -44,7 +44,7 @@ def process_xml(xml):
         for test in child:
             testName = test.attrib['name']
             testTime = test.attrib['time']
-
+            testStatus = test.attrib['status']
             # Getting all of the failure messages
             testFailures = []
             for failure in test:
@@ -58,11 +58,13 @@ def process_xml(xml):
                 tempTest.append({
                     'name': testName,
                     'time': testTime,
+                    'status': testStatus,
                     'failures': testFailures
                 })
             else:
                 tempTest.append({
                     'name': testName,
+                    'status': testStatus,
                     'time': testTime
                 })
 
