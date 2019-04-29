@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+   .test-suite-container {padding: 50px; width: 100%!important;}
+   .number-container {padding: 20px; text-align: center;}
+  </style>
+
+  <title>Web Services Tests</title>
+</head>
+<body>
+  <div class="test-suite-container" >
+    {% for test_suite in test_suites %}
+      <div class="card w-100">
+        <h5 class="card-header">{{ test_suite.name }}</h5>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-primary">
+                    Number of tests: {{ test_suite.tests }}
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-success">
+                    Passed: {{ test_suite.tests - test_suite.failures }}
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-danger">
+                    Failed: {{ test_suite.failures }}
+                  </span>
+                </h4>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion" id="accordionExample">
+            {% for test in test_suite.testsuite %}
+              {% if test.failures %}
+                <div class="card border-danger mb-3">
+                  <div class="card-header" id={{ test.name + "heading" }}>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target={{"#" + test.name + "collapse"}} aria-expanded="false" aria-controls={{ test.name + "collapse"}}>
+                        {{ test.name }}
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id={{ test.name + "collapse" }} class="collapse" aria-labelledby={{ test.name + "heading" }} data-parent="#accordionExample">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ "Time: " + test.time }}</h5>
+                      {% for failure in test.failures %}
+                        <p class="card-text">{{ "Failure: " + failure.failure }}</p>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="card border-success mb-3">
+                  <div class="card-header" id={{ test.name + "heading" }}>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target={{"#" + test.name + "collapse"}} aria-expanded="false" aria-controls={{ test.name + "collapse"}}>
+                        {{ test.name }}
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id={{ test.name + "collapse" }} class="collapse" aria-labelledby={{ test.name + "heading" }} data-parent="#accordionExample">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ "Time: " + test.time }}</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
