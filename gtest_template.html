@@ -7,6 +7,7 @@
 
    .number-container {padding: 20px; text-align: center;}
    .test-suite-container {margin: 50px;}
+   .test-button {float: right;}
   </style>
 
   <title>Google Test Report</title>
@@ -60,7 +61,22 @@
 
     {% for test_suite in test_suites %}
       <div class="card test-suite-container" id={{ test_suite.name }}>
-        <h5 class="card-header">{{ test_suite.name }}</h5>
+        <div class="card-header">
+          <h5>
+            {{ test_suite.name }}
+            <div class="btn-group btn-group-toggle test-button" data-toggle="buttons">
+              <label class="btn btn-primary btn-sm active">
+                <input type="radio" name="options" id={{ test_suite.name + "All"}} autocomplete="off" checked> Show All
+              </label>
+              <label class="btn btn-success btn-sm">
+                <input type="radio" name="options" id={{ test_suite.name + "Passed"}} autocomplete="off"> Show Only Passed
+              </label>
+              <label class="btn btn-danger btn-sm">
+                <input type="radio" name="options" id={{ test_suite.name + "Failed"}} autocomplete="off"> Show Only Failed
+              </label>
+            </div>
+          </h5>
+        </div>
         <div class="card-body">
           <div class="container">
             <div class="row">
@@ -94,19 +110,19 @@
             </div>
           </div>
 
-          <div class="accordion" id="accordionExample">
+          <div class="accordion" id={{ test_suite.name + "PassedTests"}}>
             {% for test in test_suite.testsuite %}
               {% if test.failures %}
                 <div class="card border-danger mb-3">
-                  <div class="card-header" id={{ test.name + "heading" }}>
+                  <div class="card-header" id={{ test.name + "FailedHeading" }}>
                     <h2 class="mb-0">
-                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target={{"#" + test.name + "collapse"}} aria-expanded="false" aria-controls={{ test.name + "collapse"}}>
+                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target={{"#" + test.name + "FailedCollapse"}} aria-expanded="false" aria-controls={{ test.name + "FailedCollapse"}}>
                         {{ test.name }}
                       </button>
                     </h2>
                   </div>
 
-                  <div id={{ test.name + "collapse" }} class="collapse" aria-labelledby={{ test.name + "heading" }} data-parent="#accordionExample">
+                  <div id={{ test.name + "FailedCollapse" }} class="collapse" aria-labelledby={{ test.name + "FailedHeading" }} data-parent={{ "#" + test_suite.name + "FailedTests"}}>
                     <div class="card-body">
                       <h5 class="card-title">{{ "Time: " + test.time }}</h5>
                       {% for failure in test.failures %}
@@ -115,33 +131,22 @@
                     </div>
                   </div>
                 </div>
-			  {% elif test.status == "SKIPPED" %}
-                <div class="card border-warning mb-3">
-                  <div class="card-header" id={{ test.name + "heading" }}>
-                    <h2 class="mb-0">
-                      <button class="btn btn-link text-warning" type="button" data-toggle="collapse" data-target={{"#" + test.name + "collapse"}} aria-expanded="false" aria-controls={{ test.name + "collapse"}}>
-                        {{ test.name }}
-                      </button>
-                    </h2>
-                  </div>
-
-                  <div id={{ test.name + "collapse" }} class="collapse" aria-labelledby={{ test.name + "heading" }} data-parent="#accordionExample">
-                    <div class="card-body">
-                      <h5 class="card-title">Skipped</h5>
-                    </div>
-                  </div>
-                </div>
-              {% else %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="accordion" id={{ test_suite.name + "FailedTests"}}>
+            {% for test in test_suite.testsuite %}
+              {% if test.status == "RUN" and not test.failures %}
                 <div class="card border-success mb-3">
-                  <div class="card-header" id={{ test.name + "heading" }}>
+                  <div class="card-header" id={{ test.name + "PassedHeading" }}>
                     <h2 class="mb-0">
-                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target={{"#" + test.name + "collapse"}} aria-expanded="false" aria-controls={{ test.name + "collapse"}}>
+                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target={{"#" + test.name + "PassedCollapse"}} aria-expanded="false" aria-controls={{ test.name + "PassedCollapse"}}>
                         {{ test.name }}
                       </button>
                     </h2>
                   </div>
 
-                  <div id={{ test.name + "collapse" }} class="collapse" aria-labelledby={{ test.name + "heading" }} data-parent="#accordionExample">
+                  <div id={{ test.name + "PassedCollapse" }} class="collapse" aria-labelledby={{ test.name + "PassedHeading" }} data-parent={{ "#" + test_suite.name + "PassedTests"}}>
                     <div class="card-body">
                       <h5 class="card-title">{{ "Time: " + test.time }}</h5>
                     </div>
@@ -158,5 +163,41 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script>
+    $("label").click(function()
+    {
+      var testSuiteID = $(this).find("input").attr("id");
+
+      showAll(testSuiteID);
+      if (testSuiteID.includes("Passed")) {
+        // We only want to show passed.
+        $(generateID(testSuiteID)).hide();
+      }
+      else if (testSuiteID.includes("Failed")) {
+        // We only want to show failed.
+        $(generateID(testSuiteID)).hide();
+      }
+      else {
+        // Do Nothing
+      }
+
+      function showAll(testSuiteID)
+      {
+        $(generateID(testSuiteID)).show();
+
+        $(generateID(testSuiteID.replace("Passed", "Failed"))).show();
+
+        $(generateID(testSuiteID.replace("Failed", "Passed"))).show();
+
+        $(generateID(testSuiteID.replace("All", "Passed"))).show();
+
+        $(generateID(testSuiteID.replace("All", "Failed"))).show();
+      }
+
+      function generateID(testSuiteID) {
+        return "#" + testSuiteID + "Tests";
+      }
+    })
+  </script>
 </body>
 </html>
