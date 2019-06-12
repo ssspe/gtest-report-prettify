@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+
+   .number-container {padding: 20px; text-align: center;}
+   .test-suite-container {margin: 50px;}
+   .test-button {float: right;}
+  </style>
+
+  <title>Google Test Report</title>
+</head>
+<body>
+  <div>
+    <div class="card test-suite-container">
+      <h5 class="card-header">AllTests</h5>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-primary">
+                  Number of tests: 9
+                </span>
+              </h4>
+
+            </div>
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-success">
+                  Passed: 3
+                </span>
+              </h4>
+
+            </div>
+            <div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-danger">
+                  Failed: 3
+                </span>
+              </h4>
+
+            </div>
+			<div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-warning">
+                  Disabled: 3
+                </span>
+              </h4>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group">
+          
+            <a href=#TestCasesOneUnitTests class="list-group-item list-group-item-action">
+              TestCasesOneUnitTests
+            </a>
+          
+            <a href=#TestCasesTwoUnitTests class="list-group-item list-group-item-action">
+              TestCasesTwoUnitTests
+            </a>
+          
+            <a href=#TestCasesThreeUnitTests class="list-group-item list-group-item-action">
+              TestCasesThreeUnitTests
+            </a>
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="card test-suite-container" id=TestCasesOneUnitTests>
+        <div class="card-header">
+          <h5>
+            TestCasesOneUnitTests
+            <div class="btn-group btn-group-toggle test-button" data-toggle="buttons">
+              <label class="btn btn-primary btn-sm active">
+                <input type="radio" name="options" id=TestCasesOneUnitTestsAll autocomplete="off" checked> Show All
+              </label>
+              <label class="btn btn-success btn-sm">
+                <input type="radio" name="options" id=TestCasesOneUnitTestsPassed autocomplete="off"> Show Only Passed
+              </label>
+              <label class="btn btn-danger btn-sm">
+                <input type="radio" name="options" id=TestCasesOneUnitTestsFailed autocomplete="off"> Show Only Failed
+              </label>
+			  <label class="btn btn-warning btn-sm">
+                <input type="radio" name="options" id=TestCasesOneUnitTestsDisabled autocomplete="off"> Show Only Disabled
+              </label>
+            </div>
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-primary">
+                    Number of tests: 3
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-success">
+                    Passed: 1
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-danger">
+                    Failed: 1
+                  </span>
+                </h4>
+
+              </div>
+			  <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-warning">
+                    Disabled: 1
+                  </span>
+                </h4>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion" id=TestCasesOneUnitTestsFailedTests>
+            
+              
+            
+              
+                <div class="card border-danger mb-3">
+                  <div class="card-header" id=TestThatFailesOneFailedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target=#TestThatFailesOneFailedCollapse aria-expanded="false" aria-controls=TestThatFailesOneFailedCollapse>
+                        TestThatFailesOne
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatFailesOneFailedCollapse class="collapse" aria-labelledby=TestThatFailesOneFailedHeading data-parent=#TestCasesOneUnitTestsFailedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                      
+                        <p class="card-text">Failure: c:\users\spencer.robertson\documents\projects\cid\web services testing\webservicestests\webservicestests\test_cases_one.cpp:535
+Value of: FALSE
+  Actual: false
+Expected: true</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+          </div>
+          <div class="accordion" id=TestCasesOneUnitTestsPassedTests>
+            
+              
+                <div class="card border-success mb-3">
+                  <div class="card-header" id=TestThatPassesOnePassedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target=#TestThatPassesOnePassedCollapse aria-expanded="false" aria-controls=TestThatPassesOnePassedCollapse>
+                        TestThatPassesOne
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatPassesOnePassedCollapse class="collapse" aria-labelledby=TestThatPassesOnePassedHeading data-parent=#TestCasesOneUnitTestsPassedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+          </div>
+		  <div class="accordion" id=TestCasesOneUnitTestsDisabledTests>
+            
+              
+            
+              
+            
+              
+                <div class="card border-warning mb-3">
+                  <div class="card-header" id=DISABLED_TestThatIsDisabledOneDisabledHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-warning" type="button" data-toggle="collapse" data-target=#DISABLED_TestThatIsDisabledOneDisabledCollapse aria-expanded="false" aria-controls=DISABLED_TestThatIsDisabledOneDisabledCollapse>
+                        DISABLED_TestThatIsDisabledOne
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=DISABLED_TestThatIsDisabledOneDisabledCollapse class="collapse" aria-labelledby=DISABLED_TestThatIsDisabledOneDisabledHeading data-parent=#TestCasesOneUnitTestsDisabledTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Disabled Test</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+          </div>
+        </div>
+      </div>
+    
+      <div class="card test-suite-container" id=TestCasesTwoUnitTests>
+        <div class="card-header">
+          <h5>
+            TestCasesTwoUnitTests
+            <div class="btn-group btn-group-toggle test-button" data-toggle="buttons">
+              <label class="btn btn-primary btn-sm active">
+                <input type="radio" name="options" id=TestCasesTwoUnitTestsAll autocomplete="off" checked> Show All
+              </label>
+              <label class="btn btn-success btn-sm">
+                <input type="radio" name="options" id=TestCasesTwoUnitTestsPassed autocomplete="off"> Show Only Passed
+              </label>
+              <label class="btn btn-danger btn-sm">
+                <input type="radio" name="options" id=TestCasesTwoUnitTestsFailed autocomplete="off"> Show Only Failed
+              </label>
+			  <label class="btn btn-warning btn-sm">
+                <input type="radio" name="options" id=TestCasesTwoUnitTestsDisabled autocomplete="off"> Show Only Disabled
+              </label>
+            </div>
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-primary">
+                    Number of tests: 3
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-success">
+                    Passed: 1
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-danger">
+                    Failed: 1
+                  </span>
+                </h4>
+
+              </div>
+			  <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-warning">
+                    Disabled: 1
+                  </span>
+                </h4>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion" id=TestCasesTwoUnitTestsFailedTests>
+            
+              
+            
+              
+                <div class="card border-danger mb-3">
+                  <div class="card-header" id=TestThatFailesTwoFailedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target=#TestThatFailesTwoFailedCollapse aria-expanded="false" aria-controls=TestThatFailesTwoFailedCollapse>
+                        TestThatFailesTwo
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatFailesTwoFailedCollapse class="collapse" aria-labelledby=TestThatFailesTwoFailedHeading data-parent=#TestCasesTwoUnitTestsFailedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                      
+                        <p class="card-text">Failure: c:\users\spencer.robertson\documents\projects\cid\web services testing\webservicestests\webservicestests\test_cases_two.cpp:166
+Value of: FALSE
+  Actual: false
+Expected: true</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+          </div>
+          <div class="accordion" id=TestCasesTwoUnitTestsPassedTests>
+            
+              
+                <div class="card border-success mb-3">
+                  <div class="card-header" id=TestThatPassesTwoPassedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target=#TestThatPassesTwoPassedCollapse aria-expanded="false" aria-controls=TestThatPassesTwoPassedCollapse>
+                        TestThatPassesTwo
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatPassesTwoPassedCollapse class="collapse" aria-labelledby=TestThatPassesTwoPassedHeading data-parent=#TestCasesTwoUnitTestsPassedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+          </div>
+		  <div class="accordion" id=TestCasesTwoUnitTestsDisabledTests>
+            
+              
+            
+              
+            
+              
+                <div class="card border-warning mb-3">
+                  <div class="card-header" id=DISABLED_TestThatIsDisabledTwoDisabledHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-warning" type="button" data-toggle="collapse" data-target=#DISABLED_TestThatIsDisabledTwoDisabledCollapse aria-expanded="false" aria-controls=DISABLED_TestThatIsDisabledTwoDisabledCollapse>
+                        DISABLED_TestThatIsDisabledTwo
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=DISABLED_TestThatIsDisabledTwoDisabledCollapse class="collapse" aria-labelledby=DISABLED_TestThatIsDisabledTwoDisabledHeading data-parent=#TestCasesTwoUnitTestsDisabledTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Disabled Test</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+          </div>
+        </div>
+      </div>
+    
+      <div class="card test-suite-container" id=TestCasesThreeUnitTests>
+        <div class="card-header">
+          <h5>
+            TestCasesThreeUnitTests
+            <div class="btn-group btn-group-toggle test-button" data-toggle="buttons">
+              <label class="btn btn-primary btn-sm active">
+                <input type="radio" name="options" id=TestCasesThreeUnitTestsAll autocomplete="off" checked> Show All
+              </label>
+              <label class="btn btn-success btn-sm">
+                <input type="radio" name="options" id=TestCasesThreeUnitTestsPassed autocomplete="off"> Show Only Passed
+              </label>
+              <label class="btn btn-danger btn-sm">
+                <input type="radio" name="options" id=TestCasesThreeUnitTestsFailed autocomplete="off"> Show Only Failed
+              </label>
+			  <label class="btn btn-warning btn-sm">
+                <input type="radio" name="options" id=TestCasesThreeUnitTestsDisabled autocomplete="off"> Show Only Disabled
+              </label>
+            </div>
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-primary">
+                    Number of tests: 3
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-success">
+                    Passed: 1
+                  </span>
+                </h4>
+
+              </div>
+              <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-danger">
+                    Failed: 1
+                  </span>
+                </h4>
+
+              </div>
+			  <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-warning">
+                    Disabled: 1
+                  </span>
+                </h4>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion" id=TestCasesThreeUnitTestsFailedTests>
+            
+              
+            
+              
+                <div class="card border-danger mb-3">
+                  <div class="card-header" id=TestThatFailesThreeFailedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target=#TestThatFailesThreeFailedCollapse aria-expanded="false" aria-controls=TestThatFailesThreeFailedCollapse>
+                        TestThatFailesThree
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatFailesThreeFailedCollapse class="collapse" aria-labelledby=TestThatFailesThreeFailedHeading data-parent=#TestCasesThreeUnitTestsFailedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                      
+                        <p class="card-text">Failure: c:\users\spencer.robertson\documents\projects\cid\web services testing\webservicestests\webservicestests\test_cases_three.cpp:138
+Value of: FALSE
+  Actual: false
+Expected: true</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+          </div>
+          <div class="accordion" id=TestCasesThreeUnitTestsPassedTests>
+            
+              
+                <div class="card border-success mb-3">
+                  <div class="card-header" id=TestThatPassesThreePassedHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-success" type="button" data-toggle="collapse" data-target=#TestThatPassesThreePassedCollapse aria-expanded="false" aria-controls=TestThatPassesThreePassedCollapse>
+                        TestThatPassesThree
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=TestThatPassesThreePassedCollapse class="collapse" aria-labelledby=TestThatPassesThreePassedHeading data-parent=#TestCasesThreeUnitTestsPassedTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Time: 0.002s</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+          </div>
+		  <div class="accordion" id=TestCasesThreeUnitTestsDisabledTests>
+            
+              
+            
+              
+            
+              
+                <div class="card border-warning mb-3">
+                  <div class="card-header" id=DISABLED_TestThatIsDisabledThreeDisabledHeading>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-warning" type="button" data-toggle="collapse" data-target=#DISABLED_TestThatIsDisabledThreeDisabledCollapse aria-expanded="false" aria-controls=DISABLED_TestThatIsDisabledThreeDisabledCollapse>
+                        DISABLED_TestThatIsDisabledThree
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id=DISABLED_TestThatIsDisabledThreeDisabledCollapse class="collapse" aria-labelledby=DISABLED_TestThatIsDisabledThreeDisabledHeading data-parent=#TestCasesThreeUnitTestsDisabledTests>
+                    <div class="card-body">
+                      <h5 class="card-title">Disabled Test</h5>
+                    </div>
+                  </div>
+                </div>
+              
+            
+          </div>
+        </div>
+      </div>
+    
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script>
+    $("label").click(function()
+    {
+	  const testDesc = {"Passed": 6, "Failed": 6, "Disabled": 8}
+	  const testDescAll = {"Passed": 6, "Failed": 6, "Disabled": 8, "All": 0}
+      var testSuiteID = $(this).find("input").attr("id");
+      showAll(testSuiteID);
+	  
+	  for (var testName in testDesc)
+	  {
+		var tempTestDesc = $.extend({}, testDesc);
+		if (testSuiteID.includes(testName)) 
+		{
+		  // We need to hide everything other than the selected type
+		  var testNameLen = tempTestDesc[testName]
+		  delete tempTestDesc[testName]
+		  for (var tempTestName in tempTestDesc)
+		  {
+			var tempSuite = generateTestSuiteName(testSuiteID, testNameLen, tempTestName);
+			$(generateID(tempSuite)).hide();
+		  }
+		}
+	  }
+
+      function showAll(testSuiteID)
+      {
+		for (var testName in testDescAll)
+	    {
+		  var tempTestDesc = $.extend({}, testDescAll);
+		  
+		  if (testSuiteID.includes(testName)) 
+		  {
+		    // We want to show everything
+		    for (var tempTestName in tempTestDesc)
+		    {
+			  $(generateID(testSuiteID.replace(testName, tempTestName))).show();
+		    }
+		  }
+		}
+      }
+		
+	  function generateTestSuiteName(testSuiteName, len, newName) {
+		var tempName = testSuiteName.slice(0, -len) + newName;
+		return tempName;
+	  }
+	  
+      function generateID(testSuiteID) {
+        return "#" + testSuiteID + "Tests";
+      }
+    })
+  </script>
+</body>
+</html>
