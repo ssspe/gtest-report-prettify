@@ -37,10 +37,12 @@ def process_xml(xml):
     overviewName = root.attrib['name']
     overviewTests = int(root.attrib['tests'])
     overviewFailed = int(root.attrib['failures'])
+    overviewDisabled = int(root.attrib['disabled'])
     data = {
         'name': overviewName,
         'tests': overviewTests,
         'failures': overviewFailed,
+		'disabled': overviewDisabled,
         'testsuites': []
     }
 
@@ -48,12 +50,13 @@ def process_xml(xml):
         testSuitename = child.attrib['name']
         totalTests = int(child.attrib['tests'])
         failed = int(child.attrib['failures'])
+        disabled = int(child.attrib['disabled'])
 
         tempTest = []
         for test in child:
             testName = test.attrib['name']
             testTime = test.attrib['time']
-            testStatus = test.attrib['status']
+            testStatus = test.attrib['status'].upper()
             # Getting all of the failure messages
             testFailures = []
             for failure in test:
@@ -76,11 +79,12 @@ def process_xml(xml):
                     'status': testStatus,
                     'time': testTime
                 })
-
+        print(tempTest)
         tempTestSuite = {
             'name': testSuitename,
             'tests': totalTests,
             'failures': failed,
+            'disabled': disabled,
             'testsuite': tempTest
         }
         data['testsuites'].append(tempTestSuite)

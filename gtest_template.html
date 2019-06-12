@@ -32,7 +32,7 @@
 
               <h4 class="number-container">
                 <span class="badge badge-pill badge-success">
-                  Passed: {{ test_overview.tests - test_overview.failures }}
+                  Passed: {{ test_overview.tests - test_overview.failures - test_overview.disabled }}
                 </span>
               </h4>
 
@@ -42,6 +42,15 @@
               <h4 class="number-container">
                 <span class="badge badge-pill badge-danger">
                   Failed: {{ test_overview.failures }}
+                </span>
+              </h4>
+
+            </div>
+			<div class="col-sm">
+
+              <h4 class="number-container">
+                <span class="badge badge-pill badge-warning">
+                  Disabled: {{ test_overview.disabled }}
                 </span>
               </h4>
 
@@ -74,6 +83,9 @@
               <label class="btn btn-danger btn-sm">
                 <input type="radio" name="options" id={{ test_suite.name + "Failed"}} autocomplete="off"> Show Only Failed
               </label>
+			  <label class="btn btn-warning btn-sm">
+                <input type="radio" name="options" id={{ test_suite.name + "Disabled"}} autocomplete="off"> Show Only Disabled
+              </label>
             </div>
           </h5>
         </div>
@@ -93,7 +105,7 @@
 
                 <h4 class="number-container">
                   <span class="badge badge-pill badge-success">
-                    Passed: {{ test_suite.tests - test_suite.failures }}
+                    Passed: {{ test_suite.tests - test_suite.failures - test_suite.disabled }}
                   </span>
                 </h4>
 
@@ -107,10 +119,19 @@
                 </h4>
 
               </div>
+			  <div class="col-sm">
+
+                <h4 class="number-container">
+                  <span class="badge badge-pill badge-warning">
+                    Disabled: {{ test_suite.disabled }}
+                  </span>
+                </h4>
+
+              </div>
             </div>
           </div>
 
-          <div class="accordion" id={{ test_suite.name + "PassedTests"}}>
+          <div class="accordion" id={{ test_suite.name + "FailedTests"}}>
             {% for test in test_suite.testsuite %}
               {% if test.failures %}
                 <div class="card border-danger mb-3">
@@ -134,7 +155,7 @@
               {% endif %}
             {% endfor %}
           </div>
-          <div class="accordion" id={{ test_suite.name + "FailedTests"}}>
+          <div class="accordion" id={{ test_suite.name + "PassedTests"}}>
             {% for test in test_suite.testsuite %}
               {% if test.status == "RUN" and not test.failures %}
                 <div class="card border-success mb-3">
@@ -155,6 +176,27 @@
               {% endif %}
             {% endfor %}
           </div>
+		  <div class="accordion" id={{ test_suite.name + "DisabledTests"}}>
+            {% for test in test_suite.testsuite %}
+              {% if test.status == "NOTRUN" and not test.failures %}
+                <div class="card border-warning mb-3">
+                  <div class="card-header" id={{ test.name + "DisabledHeading" }}>
+                    <h2 class="mb-0">
+                      <button class="btn btn-link text-warning" type="button" data-toggle="collapse" data-target={{"#" + test.name + "DisabledCollapse"}} aria-expanded="false" aria-controls={{ test.name + "DisabledCollapse"}}>
+                        {{ test.name }}
+                      </button>
+                    </h2>
+                  </div>
+
+                  <div id={{ test.name + "DisabledCollapse" }} class="collapse" aria-labelledby={{ test.name + "DisabledHeading" }} data-parent={{ "#" + test_suite.name + "DisabledTests"}}>
+                    <div class="card-body">
+                      <h5 class="card-title">Disabled Test</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
         </div>
       </div>
     {% endfor %}
@@ -166,34 +208,49 @@
   <script>
     $("label").click(function()
     {
+	  const testDesc = {"Passed": 6, "Failed": 6, "Disabled": 8}
+	  const testDescAll = {"Passed": 6, "Failed": 6, "Disabled": 8, "All": 0}
       var testSuiteID = $(this).find("input").attr("id");
-
       showAll(testSuiteID);
-      if (testSuiteID.includes("Passed")) {
-        // We only want to show passed.
-        $(generateID(testSuiteID)).hide();
-      }
-      else if (testSuiteID.includes("Failed")) {
-        // We only want to show failed.
-        $(generateID(testSuiteID)).hide();
-      }
-      else {
-        // Do Nothing
-      }
+	  
+	  for (var testName in testDesc)
+	  {
+		var tempTestDesc = $.extend({}, testDesc);
+		if (testSuiteID.includes(testName)) 
+		{
+		  // We need to hide everything other than the selected type
+		  var testNameLen = tempTestDesc[testName]
+		  delete tempTestDesc[testName]
+		  for (var tempTestName in tempTestDesc)
+		  {
+			var tempSuite = generateTestSuiteName(testSuiteID, testNameLen, tempTestName);
+			$(generateID(tempSuite)).hide();
+		  }
+		}
+	  }
 
       function showAll(testSuiteID)
       {
-        $(generateID(testSuiteID)).show();
-
-        $(generateID(testSuiteID.replace("Passed", "Failed"))).show();
-
-        $(generateID(testSuiteID.replace("Failed", "Passed"))).show();
-
-        $(generateID(testSuiteID.replace("All", "Passed"))).show();
-
-        $(generateID(testSuiteID.replace("All", "Failed"))).show();
+		for (var testName in testDescAll)
+	    {
+		  var tempTestDesc = $.extend({}, testDescAll);
+		  
+		  if (testSuiteID.includes(testName)) 
+		  {
+		    // We want to show everything
+		    for (var tempTestName in tempTestDesc)
+		    {
+			  $(generateID(testSuiteID.replace(testName, tempTestName))).show();
+		    }
+		  }
+		}
       }
-
+		
+	  function generateTestSuiteName(testSuiteName, len, newName) {
+		var tempName = testSuiteName.slice(0, -len) + newName;
+		return tempName;
+	  }
+	  
       function generateID(testSuiteID) {
         return "#" + testSuiteID + "Tests";
       }
