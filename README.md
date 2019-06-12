@@ -5,4 +5,4 @@ To run:
 ```python
 python -m gtest_parser PATH_TO_GOOGLE_TEST_JSON_OR_XML_FILE.json/xml
 ```
-![Example GIF Output](gtest_prettify_example.GIF)
+![](gtest_prettify_example.gif)
